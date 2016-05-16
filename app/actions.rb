@@ -13,6 +13,11 @@ get '/tracks/new' do
   erb :'tracks/new'
 end
 
+get '/tracks/:id' do
+  @track = Track.find params[:id]
+  erb :'tracks/show'
+end
+
 post '/tracks' do
   @track = Track.new(
     title: params[:title],
