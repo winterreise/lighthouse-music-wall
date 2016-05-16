@@ -1,15 +1,26 @@
+<% if @track && @track.errors.any? %>
+  <div>
+    <strong>Oops! There's an issue or two with your track entry - please fix them:</strong>
+    <ul>
+      <% @track.errors.full_messages.each do |track| %>
+        <li><%= track %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <form method="post" action="/tracks">
   <div>
     <label>Author:</label>
-    <input type="text" name="author">
+    <input type="text" name="author" value="<%= @track && @track.author %>">
   </div>
   <div>
     <label>Title:</label>
-    <input type="text" name="title">
+    <input type="text" name="title" value="<%= @track && @track.title %>">
   </div>
   <div>
     <label>URL:</label>
-    <input type="text" name="url">
+    <input type="text" name="url" value="<%= @track && @track.url %>">
   </div>
   <div>
     <input type="submit" value="Submit">
