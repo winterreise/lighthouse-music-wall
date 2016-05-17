@@ -53,7 +53,7 @@ post '/login' do
 end
 
 get '/logout' do
-  session[:user_id] = nil
+  session.clear
   redirect :'/tracks'
 end
 
