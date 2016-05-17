@@ -1,12 +1,11 @@
-<h1><%= @track.title %></h1>
+<p><a href="/tracks">Back to All Tracks</a></p>
 
-<p>
-  Author: <%= @track.author %>
-</p>
-
-<p>
-  <%= @track.url  %>
-</p>
-
-<hr/>
-<a href="/tracks">Back to All Tracks</a>
+<div class="jumbotron">
+  <h1><%= @track.title %></h1>
+  <p>
+    Author: <%= @track.author %>
+  </p>
+  <p>
+    <a class="btn btn-primary btn-lg" href="<%= @track.url %>" role="button">Play track</a>
+  </p>
+</div>
