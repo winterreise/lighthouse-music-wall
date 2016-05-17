@@ -10,6 +10,7 @@ end
 # User auth
 get '/signup' do
   erb :'auth/signup'
+  #TODO password match check
 end
 
 post '/users' do

@@ -9,3 +9,19 @@
     <a class="btn btn-primary btn-lg" href="<%= @track.url %>" role="button">Play track</a>
   </p>
 </div>
+
+<section class="review-form">
+  <h2>Leave a review</h2>
+  <form method="post" action="/users">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Your snazzy title here">
+    </div>
+    <div class="form-group">
+      <label>Review</label>
+      <textarea class="form-control" rows="5" id="exampleInputPassword1" placeholder="Everyone's a critic!"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</br>
+</section>
