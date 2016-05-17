@@ -1,3 +1,5 @@
+# with help from http://stackoverflow.com/questions/3559824/what-is-a-very-simple-authentication-scheme-for-sinatra-rack
+
 set :sessions => true
 
 # give all endpoints access to @user, if there is one
