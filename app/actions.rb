@@ -1,3 +1,10 @@
+set :sessions => true
+
+# give all endpoints access to @user, if there is one
+before do
+  @user = User.find(session[:user_id]) if session[:user_id]
+end
+
 # User auth
 get '/signup' do
   erb :'auth/signup'
@@ -9,6 +16,8 @@ post '/users' do
     password:  params[:password]
   )
   if @user.save
+    @user.reload
+    session[:user_id] = @user.id # store the user id in the session
     redirect '/tracks'
   else
     erb :'auth/signup'
@@ -35,14 +44,15 @@ post '/login' do
       erb :'auth/login'
     else
       # log them in since we found a matching user
-      # TODO session schtuff
+      session[:user_id] = @user.id # store the user id in the session
       redirect :'/tracks'
     end
   end
 end
 
 get '/logout' do
-  # TODO
+  session[:user_id] = nil
+  redirect :'/tracks'
 end
 
 # Homepage (Root path)

@@ -1,3 +1,6 @@
+<% if @user %>
+  <p>Hello, <%= @user.email %>!</p>
+<% end %>
 <% @tracks.each do |track| %>
   <div class="track media">
     <div class="media-left">
