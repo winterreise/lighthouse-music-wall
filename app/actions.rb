@@ -1,3 +1,50 @@
+# User auth
+get '/signup' do
+  erb :'auth/signup'
+end
+
+post '/users' do
+  @user = User.new(
+    email: params[:email],
+    password:  params[:password]
+  )
+  if @user.save
+    redirect '/tracks'
+  else
+    erb :'auth/signup'
+  end
+end
+
+get '/login' do
+  @email = ''
+  erb :'auth/login'
+end
+
+post '/login' do
+  @email = params[:email]
+  # did the user give us what we asked for?
+  if params[:email].empty? or params[:password].empty?
+    @error = 'Whoops! Email and password must not be blank.'
+    erb :'auth/login'
+  else
+    # TODO check to see if user exists and password matches
+    @user = User.where(email: params[:email], password: params[:password]).first
+    if @user == nil
+      # then we didn't find one that matched! So their password must be wrong or they don't exist
+      @error = 'Whoops! Your password is wrong or we couldn\'t find you.'
+      erb :'auth/login'
+    else
+      # log them in since we found a matching user
+      # TODO session schtuff
+      redirect :'/tracks'
+    end
+  end
+end
+
+get '/logout' do
+  # TODO
+end
+
 # Homepage (Root path)
 get '/' do
   erb :index
