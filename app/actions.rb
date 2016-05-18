@@ -69,24 +69,59 @@ get '/tracks' do
 end
 
 get '/tracks/new' do
-  @track = Track.new
-  erb :'tracks/new'
+  if @user
+    @track = Track.new
+    erb :'tracks/new'
+  else
+    redirect :'/login'
+  end
 end
 
 get '/tracks/:id' do
   @track = Track.find params[:id]
+  @reviews = Review.where(track: @track).order(created_at: :desc)
+  @my_review = Review.where(user: @user, track: @track).first
   erb :'tracks/show'
 end
 
 post '/tracks' do
-  @track = Track.new(
-    title: params[:title],
-    author:  params[:author],
-    url: params[:url]
-  )
-  if @track.save
-    redirect '/tracks'
+  if @user
+    @track = Track.new(
+      title: params[:title],
+      author:  params[:author],
+      url: params[:url]
+    )
+    if @track.save
+      redirect '/tracks'
+    else
+      erb :'tracks/new'
+    end
   else
-    erb :'tracks/new'
+    redirect :'/login'
   end
+end
+
+post '/tracks/:track_id/reviews' do
+  if @user
+    @track = Track.find(params[:track_id])
+    @review = Review.new(
+      user: @user,
+      track: @track,
+      title: params[:title],
+      content:  params[:content]
+    )
+    if @review.save
+      redirect "/tracks/#{params[:track_id]}"
+    else
+      @reviews = Review.where(track: @track).order(created_at: :desc)
+      @my_review = Review.where(user: @user, track: @track).first
+      erb :'tracks/show'
+    end
+  else
+    redirect :'/login'
+  end
+end
+
+delete '/tracks/:track_id/reviews/:review_id' do
+  # TODO
 end

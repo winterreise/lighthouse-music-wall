@@ -6,22 +6,44 @@
     Author: <%= @track.author %>
   </p>
   <p>
-    <a class="btn btn-primary btn-lg" href="<%= @track.url %>" role="button">Play track</a>
+    <a class="btn btn-primary btn-lg" target="_blank" href="<%= @track.url %>" role="button">Play track</a>
   </p>
 </div>
 
 <section class="review-form">
   <h2>Leave a review</h2>
-  <form method="post" action="/users">
+  <% if @user && !@my_review %>
+  <form method="post" action="/tracks/<%= @track.id %>/reviews">
     <div class="form-group">
       <label>Title</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Your snazzy title here">
+      <input type="text" class="form-control" name="title" placeholder="Your snazzy title here">
     </div>
     <div class="form-group">
       <label>Review</label>
-      <textarea class="form-control" rows="5" id="exampleInputPassword1" placeholder="Everyone's a critic!"></textarea>
+      <textarea class="form-control" rows="5" name="content" placeholder="Everyone's a critic!"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-</br>
+  <% elsif @user && @my_review %>
+  <p>
+    You've already left a review!
+  </p>
+  <% else %>
+  <p>
+    You must be <a href="/login">logged in</a> to leave a review.
+  </p>
+  <% end %>
+</section>
+
+<section class="reviews container">
+<% @reviews.each do |review| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading"><%= review.title %> <small><%= review.user.email %> at <%= review.created_at %></small></h4>
+      <p>
+        <%= review.content %>
+      </p>
+    </div>
+  </div>
+<% end %>
 </section>
