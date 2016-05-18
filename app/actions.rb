@@ -108,7 +108,8 @@ post '/tracks/:track_id/reviews' do
       user: @user,
       track: @track,
       title: params[:title],
-      content:  params[:content]
+      content: params[:content],
+      rating: params[:rating]
     )
     if @review.save
       redirect "/tracks/#{params[:track_id]}"

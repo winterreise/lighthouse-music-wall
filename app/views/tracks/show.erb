@@ -19,6 +19,16 @@
       <input type="text" class="form-control" name="title" placeholder="Your snazzy title here">
     </div>
     <div class="form-group">
+      <label>Rating</label>
+      <select class="form-control" name="rating">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="form-group">
       <label>Review</label>
       <textarea class="form-control" rows="5" name="content" placeholder="Everyone's a critic!"></textarea>
     </div>
@@ -39,7 +49,7 @@
 <% @reviews.each do |review| %>
   <div class="media">
     <div class="media-body">
-      <h4 class="media-heading"><%= review.title %> <small><%= review.user.email %> at <%= review.created_at %></small></h4>
+      <h4 class="media-heading"><%= review.title %> <small><%= review.user.email %> at <%= review.created_at %> - rating: <%= review.rating %></small></h4>
       <p>
         <%= review.content %>
       </p>
