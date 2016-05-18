@@ -43,6 +43,12 @@
       <p>
         <%= review.content %>
       </p>
+      <% if review.id == @my_review.id %>
+      <form method="POST" action="/tracks/<%= @track.id %>/reviews">
+        <input type="hidden" name="_method" value="DELETE"> <!-- sinatra/rails hack to fake delete HTTP verb from a form -->
+        <button class="btn btn-danger">delete</button>
+      </form>
+      <% end %>
     </div>
   </div>
 <% end %>

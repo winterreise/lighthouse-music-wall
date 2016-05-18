@@ -122,6 +122,13 @@ post '/tracks/:track_id/reviews' do
   end
 end
 
-delete '/tracks/:track_id/reviews/:review_id' do
-  # TODO
+delete '/tracks/:track_id/reviews' do
+  if @user
+    @track = Track.find(params[:track_id])
+    @my_review = Review.where(user: @user, track: @track).first
+    Review.destroy(@my_review.id) if @my_review
+    redirect "/tracks/#{params[:track_id]}"
+  else
+    redirect :'/login'
+  end
 end
