@@ -16,8 +16,6 @@ gem 'tux'
 gem 'bcrypt'
 gem 'pg'
 
-group :development, :test do
-  gem 'pry'
-  gem 'shotgun'
-  gem 'sqlite3'
-end
+gem 'pry'
+gem 'shotgun'
+gem 'sqlite3'
