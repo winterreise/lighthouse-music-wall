@@ -18,4 +18,7 @@ gem 'pg'
 
 gem 'pry'
 gem 'shotgun'
-gem 'sqlite3'
+
+group :development, :test do
+  gem 'sqlite3'
+end
